@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Сокращатель ссылок {% endblock %}</h1>
+    <form method="post">
+    <div class="form-group">
+        <label for="url">URL</label>
+        <input type="text" id="url" name="url"
+               placeholder="URL to shorten" class="form-control"
+               value="{{ request.form['url'] }}" autofocus>
+    </div>
+
+        <select class="form-control mb-3" id="exampleFormControlSelect1" name="access">
+            <option value="0">Публичный</option>
+           {% if logged %}
+                <option value="1">Общий</option>
+                <option value="2">Приватный</option>
+            {% else %}
+                <option value="1" disabled>Общий</option>
+                <option value="2" disabled>Приватный</option>
+            {% endif %}
+        </select>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    </form>
+
+    {% if short_url %}
+    <hr>
+    <span>{{ short_url }}</span>
+    {% endif %}
+{% endblock %}
